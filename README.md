@@ -1,0 +1,1 @@
+This is my first project using JavaScript. I'll be creating a simple rock, paper, scissors game. I will be implementing functions and hopefully making use of loops.
