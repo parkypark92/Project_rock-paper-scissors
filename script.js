@@ -14,19 +14,24 @@ switch(true) {
     case playerSelection === "Paper" && computerSelection === "Scissors" :
     case playerSelection === "Scissors" && computerSelection === "Rock":
         result = "computerWin";
-      break;
+        console.log(`${computerSelection} beats ${playerSelection}, Computer wins!`);
+    break;
 
     case playerSelection === "Rock" && computerSelection === "Scissors": 
     case playerSelection === "Paper" && computerSelection === "Rock" :
     case playerSelection === "Scissors" && computerSelection === "Paper":
         result = "playerWin"; 
-      break;
+        console.log(`${playerSelection} beats ${computerSelection}, Player wins!`);
+    break;
 
     case playerSelection === "Rock" && computerSelection === "Rock":
     case playerSelection === "Paper" && computerSelection === "Paper" :
     case playerSelection === "Scissors" && computerSelection === "Scissors":
-        result = "tie";
-      break;
+        console.log(`${playerSelection} and ${computerSelection}, it's a tie!`);
+    break;
+
+    default: console.log("Please enter Rock, Paper or Scissors!");
+    break;
     }
     
     return result;
@@ -45,26 +50,15 @@ let computerScore = 0;
     //play rounds until someone reaches 5
     while(playerScore < 5 && computerScore < 5) {
 
-    let playerChoice = prompt("Input 'Rock', 'Paper' or 'Scissors'");
-    playerChoice = capitalizeFirstLetter(playerChoice);
-
+    let playerChoice = capitalizeFirstLetter(prompt("Input 'Rock', 'Paper' or 'Scissors'"));
     let computerChoice = getComputerChoice();
+    let roundResult = playRound(playerChoice, computerChoice);
 
-    if(playRound(playerChoice, computerChoice) === "computerWin") {
-    console.log(`${computerChoice} beats ${playerChoice}, Computer wins!`);
-    computerScore++;
-
-    } else if(playRound(playerChoice, computerChoice) === "playerWin") {
-        console.log(`${playerChoice} beats ${computerChoice}, Player wins!`);
+    if(roundResult === "computerWin") {
+        computerScore++;
+    } else if(roundResult === "playerWin") {
         playerScore++;
-
-    } else if(playRound(playerChoice, computerChoice) === "tie") {
-        console.log(`${playerChoice} and ${computerChoice}, it's a tie!`);
-
-    } else {
-        console.log("Please enter Rock, Paper or Scissors!");
     }
-
     console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
     } //exit while loop
 
