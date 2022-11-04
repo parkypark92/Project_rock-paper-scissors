@@ -7,23 +7,28 @@ function getComputerChoice () {
 
 //play one round, determine who is the winner, return winner of round
 function playRound(playerSelection, computerSelection) {
-let result = ""
+let result = "";
 
-    if(playerSelection === "Rock" && computerSelection === "Paper" ||
-    playerSelection === "Paper" && computerSelection === "Scissors" ||
-    playerSelection === "Scissors" && computerSelection === "Rock") {
+switch(true) {
+    case playerSelection === "Rock" && computerSelection === "Paper":
+    case playerSelection === "Paper" && computerSelection === "Scissors" :
+    case playerSelection === "Scissors" && computerSelection === "Rock":
         result = "computerWin";
+      break;
 
-    } else if(playerSelection === "Rock" && computerSelection === "Scissors" ||
-    playerSelection === "Paper" && computerSelection === "Rock" ||
-    playerSelection === "Scissors" && computerSelection === "Paper") {
-        result = "playerWin";    
+    case playerSelection === "Rock" && computerSelection === "Scissors": 
+    case playerSelection === "Paper" && computerSelection === "Rock" :
+    case playerSelection === "Scissors" && computerSelection === "Paper":
+        result = "playerWin"; 
+      break;
 
-    } else if(playerSelection === "Rock" && computerSelection === "Rock" ||
-    playerSelection === "Paper" && computerSelection === "Paper" ||
-    playerSelection === "Scissors" && computerSelection === "Scissors") {
+    case playerSelection === "Rock" && computerSelection === "Rock":
+    case playerSelection === "Paper" && computerSelection === "Paper" :
+    case playerSelection === "Scissors" && computerSelection === "Scissors":
         result = "tie";
-    } 
+      break;
+    }
+    
     return result;
 }
 
@@ -34,11 +39,11 @@ function capitalizeFirstLetter(word) {
 
 //loop through 5 rounds, displaying winner each time and keeping score
 function playGame() {
-let playerCount = 0;
-let computerCount = 0;
+let playerScore = 0;
+let computerScore = 0;
 
     //play rounds until someone reaches 5
-    while(playerCount < 5 && computerCount < 5) {
+    while(playerScore < 5 && computerScore < 5) {
 
     let playerChoice = prompt("Input 'Rock', 'Paper' or 'Scissors'");
     playerChoice = capitalizeFirstLetter(playerChoice);
@@ -47,11 +52,11 @@ let computerCount = 0;
 
     if(playRound(playerChoice, computerChoice) === "computerWin") {
     console.log(`${computerChoice} beats ${playerChoice}, Computer wins!`);
-    computerCount++;
+    computerScore++;
 
     } else if(playRound(playerChoice, computerChoice) === "playerWin") {
         console.log(`${playerChoice} beats ${computerChoice}, Player wins!`);
-        playerCount++;
+        playerScore++;
 
     } else if(playRound(playerChoice, computerChoice) === "tie") {
         console.log(`${playerChoice} and ${computerChoice}, it's a tie!`);
@@ -60,13 +65,13 @@ let computerCount = 0;
         console.log("Please enter Rock, Paper or Scissors!");
     }
 
-    console.log(`Player: ${playerCount}    Computer: ${computerCount}`);
+    console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
     } //exit while loop
 
 
-    if(playerCount === 5){
+    if(playerScore === 5){
         console.log("Player wins the game!!!");
-    } else if(computerCount === 5) {
+    } else if(computerScore === 5) {
         console.log("Computer wins the game!!!");
     }
 }
