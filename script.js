@@ -1,15 +1,12 @@
 //randomly generate 'rock' 'paper' or 'scissors' as the computers choice
-
 function getComputerChoice () {
     const choices = ["Rock", "Paper", "Scissors"];
     let currentChoice = choices[Math.floor(Math.random() * choices.length)];
     return currentChoice;
 }
-//play one round using computer choice and user choice
-    //determine who is the winner
-    //return winner of round
-function playRound(playerSelection, computerSelection) {
 
+//play one round, determine who is the winner, return winner of round
+function playRound(playerSelection, computerSelection) {
 let result = ""
 
     if(playerSelection === "Rock" && computerSelection === "Paper" ||
@@ -26,51 +23,47 @@ let result = ""
     playerSelection === "Paper" && computerSelection === "Paper" ||
     playerSelection === "Scissors" && computerSelection === "Scissors") {
         result = "tie";
-
     } 
     return result;
 }
 
 
-    
+function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
 //loop through 5 rounds, displaying winner each time and keeping score
 function playGame() {
-
 let playerCount = 0;
 let computerCount = 0;
 
-    //play rounds until someone gets 5 wins
-    for(let i = 0; i < 5; i++) {
-        //only allow loop to increment if one score is higher than the other
-        while(playerCount <= i && computerCount <= i) {
+    //play rounds until someone reaches 5
+    while(playerCount < 5 && computerCount < 5) {
 
-        //allow user to input 'rock' 'paper' or 'scissors' (case insensitive)
-        let playerChoice = prompt("Input 'Rock', 'Paper' or 'Scissors'");
-        playerChoice = playerChoice.toLowerCase();
-            playerChoice = playerChoice.replace(playerChoice[0], playerChoice[0].toUpperCase());
+    let playerChoice = prompt("Input 'Rock', 'Paper' or 'Scissors'");
+    playerChoice = capitalizeFirstLetter(playerChoice);
 
-        //generate computers choice
-        let computerChoice = getComputerChoice();
+    let computerChoice = getComputerChoice();
 
-        //play a round, display winner, keep score
-        if(playRound(playerChoice, computerChoice) === "computerWin") {
-        console.log(`${computerChoice} beats ${playerChoice}, Computer wins!`);
-        computerCount++;
-        } else if(playRound(playerChoice, computerChoice) === "playerWin") {
-            console.log(`${playerChoice} beats ${computerChoice}, Player wins!`);
-            playerCount++;
-        } else if(playRound(playerChoice, computerChoice) === "tie") {
-            console.log(`${playerChoice} and ${computerChoice}, it's a tie!`);
-        } else {
-            console.log("Please enter Rock, Paper or Scissors!");
-        }
+    if(playRound(playerChoice, computerChoice) === "computerWin") {
+    console.log(`${computerChoice} beats ${playerChoice}, Computer wins!`);
+    computerCount++;
 
-        console.log(`Player: ${playerCount}    Computer: ${computerCount}`);
-        } //exit while loop
+    } else if(playRound(playerChoice, computerChoice) === "playerWin") {
+        console.log(`${playerChoice} beats ${computerChoice}, Player wins!`);
+        playerCount++;
 
-    } //exit for loop
+    } else if(playRound(playerChoice, computerChoice) === "tie") {
+        console.log(`${playerChoice} and ${computerChoice}, it's a tie!`);
 
-    //display winner
+    } else {
+        console.log("Please enter Rock, Paper or Scissors!");
+    }
+
+    console.log(`Player: ${playerCount}    Computer: ${computerCount}`);
+    } //exit while loop
+
+
     if(playerCount === 5){
         console.log("Player wins the game!!!");
     } else if(computerCount === 5) {
