@@ -1,8 +1,7 @@
 //randomly generate 'rock' 'paper' or 'scissors' as the computers choice
-function getComputerChoice () {
+function getComputerChoice() {
     const choices = ["Rock", "Paper", "Scissors"];
-    let currentChoice = choices[Math.floor(Math.random() * choices.length)];
-    return currentChoice;
+    return choices[Math.floor(Math.random() * choices.length)]; 
 }
 
 //play one round, determine who is the winner, return winner of round
@@ -24,9 +23,7 @@ switch(true) {
         console.log(`${playerSelection} beats ${computerSelection}, Player wins!`);
     break;
 
-    case playerSelection === "Rock" && computerSelection === "Rock":
-    case playerSelection === "Paper" && computerSelection === "Paper" :
-    case playerSelection === "Scissors" && computerSelection === "Scissors":
+    case playerSelection === computerSelection:
         console.log(`${playerSelection} and ${computerSelection}, it's a tie!`);
     break;
 
@@ -71,6 +68,5 @@ let computerScore = 0;
 }
 playGame();
 
-//first to 5 is overall winner
 
 
