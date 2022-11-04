@@ -1,14 +1,16 @@
 //randomly generate 'rock' 'paper' or 'scissors' as the computers choice
-function getComputerChoice() {
+function getComputerChoice() 
+{
     const choices = ["Rock", "Paper", "Scissors"];
     return choices[Math.floor(Math.random() * choices.length)]; 
 }
 
 //play one round, determine who is the winner, return winner of round
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) 
+{
 let result = "";
-
-switch(true) {
+    switch(true) 
+    {
     case playerSelection === "Rock" && computerSelection === "Paper":
     case playerSelection === "Paper" && computerSelection === "Scissors" :
     case playerSelection === "Scissors" && computerSelection === "Rock":
@@ -30,39 +32,42 @@ switch(true) {
     default: console.log("Please enter Rock, Paper or Scissors!");
     break;
     }
-    
-    return result;
+return result;
 }
 
-
-function capitalizeFirstLetter(word) {
+function capitalizeFirstLetter(word) 
+{
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
-//loop through 5 rounds, displaying winner each time and keeping score
-function playGame() {
+//loop through rounds, keeping score, first to 5 wins
+function playGame() 
+{
 let playerScore = 0;
 let computerScore = 0;
-
-    //play rounds until someone reaches 5
-    while(playerScore < 5 && computerScore < 5) {
-
+    while(playerScore < 5 && computerScore < 5) 
+    {
     let playerChoice = capitalizeFirstLetter(prompt("Input 'Rock', 'Paper' or 'Scissors'"));
     let computerChoice = getComputerChoice();
     let roundResult = playRound(playerChoice, computerChoice);
 
-    if(roundResult === "computerWin") {
-        computerScore++;
-    } else if(roundResult === "playerWin") {
-        playerScore++;
-    }
+        if(roundResult === "computerWin") 
+        {
+            computerScore++;
+        } 
+        else if(roundResult === "playerWin") 
+        {
+            playerScore++;
+        }
     console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
     } //exit while loop
 
-
-    if(playerScore === 5){
+    if(playerScore === 5)
+    {
         console.log("Player wins the game!!!");
-    } else if(computerScore === 5) {
+    } 
+    else if(computerScore === 5) 
+    {
         console.log("Computer wins the game!!!");
     }
 }
