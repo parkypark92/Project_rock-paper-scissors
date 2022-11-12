@@ -5,7 +5,15 @@ let computerScore = 0;
 const selection = document.querySelectorAll('button');
 selection.forEach((button) => {
     button.addEventListener('click', playRound)})
-    
+
+const body = document.querySelector('body');
+const roundWinner = document.createElement('p');
+body.appendChild(roundWinner);
+roundWinner.textContent = "Press a button to begin...";
+const currentScore = document.createElement('pre');
+body.appendChild(currentScore);
+currentScore.textContent = "Player: 0     Computer: 0";
+
 
 function getComputerChoice() 
 {
@@ -14,9 +22,9 @@ function getComputerChoice()
 }
 
 
-function playRound(event) 
+function playRound() 
 {
-    playerSelection = event.target.id;
+    playerSelection = this.id;
     let computerSelection = getComputerChoice();
 let result = "";
     switch(true) 
@@ -25,21 +33,18 @@ let result = "";
     case playerSelection === "Paper" && computerSelection === "Scissors" :
     case playerSelection === "Scissors" && computerSelection === "Rock":
         result = "computerWin";
-        console.log(`${computerSelection} beats ${playerSelection}, Computer wins!`);
+        roundWinner.textContent = `${computerSelection} beats ${playerSelection}, Computer wins!`;
     break;
 
     case playerSelection === "Rock" && computerSelection === "Scissors": 
     case playerSelection === "Paper" && computerSelection === "Rock" :
     case playerSelection === "Scissors" && computerSelection === "Paper":
         result = "playerWin"; 
-        console.log(`${playerSelection} beats ${computerSelection}, Player wins!`);
+        roundWinner.textContent = `${playerSelection} beats ${computerSelection}, Player wins!`;
     break;
 
     case playerSelection === computerSelection:
-        console.log(`${playerSelection} and ${computerSelection}, it's a tie!`);
-    break;
-
-    default: console.log("Please enter Rock, Paper or Scissors!");
+        roundWinner.textContent = `${playerSelection} and ${computerSelection}, it's a tie!`;
     break;
     }
   getScore(result);
@@ -56,38 +61,50 @@ function getScore(currentRound)
     {
         playerScore++;
     }
-console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
-checkWin();
+currentScore.textContent = `Player: ${playerScore}     Computer: ${computerScore}`;
+if(playerScore === 5 || computerScore === 5)
+{
+    checkWin();
+}
+
 }
 
 
 function checkWin()
 {
+    let winner;
     if(playerScore === 5)
     {
-        console.log("Player wins the game!!!");
-        endGame();
+        winner = 'PLAYER';
     } 
     else if(computerScore === 5) 
     {
-        console.log("Computer wins the game!!!");
-        endGame();
+        winner = "COMPUTER";
     }
+    endGame(winner);
 }
 
 
-function endGame()
+function endGame(winner)
 {
+    roundWinner.textContent = `${winner} WINS THE GAME!!!`;
+    const restart = document.createElement("button");
+    restart.textContent = "Play Again";
+    body.appendChild(restart);
+    restart.addEventListener('click', restartGame);
     selection.forEach((button) => {
         button.disabled = true;
     })
 }
 
 
-
-
-    
-
-
-
-
+function restartGame() {
+    roundWinner.textContent = "Press a button to begin...";
+    currentScore.textContent = "Player: 0     Computer: 0";
+    playerScore = 0;
+    computerScore = 0;
+    body.removeChild(this);
+    selection.forEach((button) => {
+        button.disabled = false;
+})
+}
