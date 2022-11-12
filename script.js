@@ -1,13 +1,23 @@
-//randomly generate 'rock' 'paper' or 'scissors' as the computers choice
+let playerSelection = "";
+let playerScore = 0;
+let computerScore = 0;
+
+const selection = document.querySelectorAll('button');
+selection.forEach((button) => {
+    button.addEventListener('click', playRound)})
+    
+
 function getComputerChoice() 
 {
     const choices = ["Rock", "Paper", "Scissors"];
     return choices[Math.floor(Math.random() * choices.length)]; 
 }
 
-//play one round, determine who is the winner, return winner of round
-function playRound(playerSelection, computerSelection) 
+
+function playRound(event) 
 {
+    playerSelection = event.target.id;
+    let computerSelection = getComputerChoice();
 let result = "";
     switch(true) 
     {
@@ -32,46 +42,52 @@ let result = "";
     default: console.log("Please enter Rock, Paper or Scissors!");
     break;
     }
-return result;
+  getScore(result);
 }
 
-function capitalizeFirstLetter(word) 
-{
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-}
 
-//loop through rounds, keeping score, first to 5 wins
-function playGame() 
+function getScore(currentRound)
 {
-let playerScore = 0;
-let computerScore = 0;
-    while(playerScore < 5 && computerScore < 5) 
+    if(currentRound === "computerWin") 
     {
-    let playerChoice = capitalizeFirstLetter(prompt("Input 'Rock', 'Paper' or 'Scissors'"));
-    let computerChoice = getComputerChoice();
-    let roundResult = playRound(playerChoice, computerChoice);
+        computerScore++;
+    } 
+    else if(currentRound === "playerWin") 
+    {
+        playerScore++;
+    }
+console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
+checkWin();
+}
 
-        if(roundResult === "computerWin") 
-        {
-            computerScore++;
-        } 
-        else if(roundResult === "playerWin") 
-        {
-            playerScore++;
-        }
-    console.log(`Player: ${playerScore}    Computer: ${computerScore}`);
-    } //exit while loop
 
+function checkWin()
+{
     if(playerScore === 5)
     {
         console.log("Player wins the game!!!");
+        endGame();
     } 
     else if(computerScore === 5) 
     {
         console.log("Computer wins the game!!!");
+        endGame();
     }
 }
-playGame();
+
+
+function endGame()
+{
+    selection.forEach((button) => {
+        button.disabled = true;
+    })
+}
+
+
+
+
+    
+
 
 
 
