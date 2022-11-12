@@ -3,10 +3,8 @@ let playerScore;
 let computerScore;
 
 const body = document.querySelector('body');
-const roundWinner = document.createElement('p');
-body.appendChild(roundWinner);
-const currentScore = document.createElement('pre');
-body.appendChild(currentScore);
+const roundWinner = document.querySelector('p')
+const currentScore = document.querySelector('pre');
 const selection = document.querySelectorAll('button');
 selection.forEach((button) => {
     button.addEventListener('click', playRound)
