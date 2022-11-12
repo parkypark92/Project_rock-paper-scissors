@@ -1,18 +1,29 @@
 let playerSelection = "";
-let playerScore = 0;
-let computerScore = 0;
-
-const selection = document.querySelectorAll('button');
-selection.forEach((button) => {
-    button.addEventListener('click', playRound)})
+let playerScore;
+let computerScore;
 
 const body = document.querySelector('body');
 const roundWinner = document.createElement('p');
 body.appendChild(roundWinner);
-roundWinner.textContent = "Press a button to begin...";
 const currentScore = document.createElement('pre');
 body.appendChild(currentScore);
-currentScore.textContent = "Player: 0     Computer: 0";
+const selection = document.querySelectorAll('button');
+selection.forEach((button) => {
+    button.addEventListener('click', playRound)
+});
+
+
+function startGame()
+{
+    roundWinner.textContent = "Press a button to begin...";
+    currentScore.textContent = "Player: 0     Computer: 0";
+    playerScore = 0;
+    computerScore = 0;
+    selection.forEach((button) => {
+        button.disabled = false;
+})
+}
+startGame();
 
 
 function getComputerChoice() 
@@ -66,7 +77,6 @@ if(playerScore === 5 || computerScore === 5)
 {
     checkWin();
 }
-
 }
 
 
@@ -88,23 +98,21 @@ function checkWin()
 function endGame(winner)
 {
     roundWinner.textContent = `${winner} WINS THE GAME!!!`;
+    selection.forEach((button) => {
+        button.disabled = true;
+    });
+
     const restart = document.createElement("button");
     restart.textContent = "Play Again";
     body.appendChild(restart);
-    restart.addEventListener('click', restartGame);
-    selection.forEach((button) => {
-        button.disabled = true;
-    })
+    restart.addEventListener('click', (e) => {
+        body.removeChild(e.target);
+        startGame(); 
+    });    
 }
 
 
-function restartGame() {
-    roundWinner.textContent = "Press a button to begin...";
-    currentScore.textContent = "Player: 0     Computer: 0";
-    playerScore = 0;
-    computerScore = 0;
-    body.removeChild(this);
-    selection.forEach((button) => {
-        button.disabled = false;
-})
-}
+
+    
+   
+    
